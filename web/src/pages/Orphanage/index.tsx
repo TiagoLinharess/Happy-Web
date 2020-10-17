@@ -16,7 +16,7 @@ interface Orphanage {
   about: string;
   instructions: string;
   opening_hours: string;
-  open_on_weekend: string;
+  open_on_weekends: string;
   images: Array<{
     id:number;
     url: string;
@@ -34,6 +34,7 @@ export default function Orphanage() {
 
   useEffect(() => {
     api.get(`orphanages/${params.id}`).then(response => {
+      console.log(response.data)
       setOrphanage(response.data);
     })
   }, [params.id]);
@@ -55,7 +56,7 @@ export default function Orphanage() {
             {orphanage.images.map((image, index) => {
               return (
                 <button 
-                  key={image.id} 
+                  key={image.id}
                   className={activeImageIndex === index ? 'active' : ''}
                   type="button"
                   onClick={() => {
@@ -106,7 +107,8 @@ export default function Orphanage() {
                 Segunda à Sexta <br />
                 {orphanage.opening_hours}
               </div>
-              { orphanage.open_on_weekend ? (
+              { orphanage.open_on_weekends ? 
+              (
                 <div className="open-on-weekends">
                   <FiInfo size={32} color="#39CC83" />
                   Atendemos <br />
